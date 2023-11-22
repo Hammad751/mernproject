@@ -4,19 +4,21 @@ import About from "./pages/About.jsx"
 import SignIn from "./pages/SignIn.jsx"
 import SignUp from "./pages/SignUp.jsx"
 import Profile from "./pages/Profile.jsx"
+import Header from "./components/Header.jsx";
 
 // everything is covered within browser router
 function App() {
   return (
     <div>
       <BrowserRouter>
-      <Routes>
+        <Header />
+        <Routes>
           <Route path='/' element={<Home />}/>
           <Route path='/about' element={<About/>}/>
           <Route path='/profile' element={<Profile />}/>
           <Route path='/signin' element={<SignIn />}/>
           <Route path='/signup' element={<SignUp />}/>
-      </Routes>
+        </Routes>
       </BrowserRouter>
     </div>
   )
