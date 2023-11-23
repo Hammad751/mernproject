@@ -16,9 +16,12 @@ function Header() {
                 </Link>
                 <Link to='/profile'>
                     <li>Profile</li>
-                </Link>
+                </Link> 
                 <Link to='/signin'>
                     <li>SignIn</li>
+                </Link>
+                <Link to='/signup'>
+                    <li>Sign Up</li>
                 </Link>
             </ul>
         </div>
