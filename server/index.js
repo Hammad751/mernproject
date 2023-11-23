@@ -21,6 +21,19 @@ catch (error) {
 app.use('/server/user', userRoute);
 app.use('/server/auth', authRoute);
 
+// add middleware in function calling
+app.use((err, req, res, next) => {
+    const statuscode = err.statusCode || 500
+    const message = err.message || "internal system error"
+
+    return res.status(statuscode).json({
+        success: false,
+        message,
+        statuscode
+    })
+    // res.status(statuscode).json(err.message)
+})
+
 app.listen(port, () =>{
     console.log(`server is listening on port http://localhost:${port}`);
 })

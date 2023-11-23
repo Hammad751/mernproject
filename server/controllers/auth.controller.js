@@ -1,7 +1,7 @@
 import User from "../model/user.model.js";
 import bcryptjs from 'bcryptjs'
 
-export const authtest = async (req, res) =>{
+export const authtest = async (req, res, next) =>{
 
     // destructure the body input by the user
     const { username, email, password} = req.body;
@@ -22,8 +22,8 @@ export const authtest = async (req, res) =>{
         res.status(201).json({message: "data stored successfully.."});
 
     } catch (error) {
-        res.status(500).json(error.message)
-        // res.json({message: "user already registered..."})
+        // res.status(500).json(error.message)
+        next(error);
     }
     
 }
