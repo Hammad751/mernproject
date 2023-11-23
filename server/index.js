@@ -17,6 +17,7 @@ catch (error) {
 }
 
 app.use('/server/user', userRoute);
+
 app.listen(port, () =>{
     console.log(`server is listening on port http://localhost:${port}`);
 })
