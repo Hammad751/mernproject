@@ -1,6 +1,7 @@
 import express from "express";
 import mongoose from "mongoose"
 import dotenv from  'dotenv'
+import userRoute from './routes/user.route.js'
 
 dotenv.config() 
 
@@ -15,6 +16,7 @@ catch (error) {
     console.log("connection error");
 }
 
+app.use('/server/user', userRoute);
 app.listen(port, () =>{
     console.log(`server is listening on port http://localhost:${port}`);
 })
