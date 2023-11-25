@@ -50,7 +50,7 @@ export const SignIn = async (req, res, next) =>{
         // add the expiry data as well for that it sets after how much time it will regenerate the token
 
         const expiryDate = new Date(Date.now() + 60000);
-        res.cookie('access_token', token, 
+        res.cookie('access_token', token,
             {
                 httpOnly:true,
                 expires:expiryDate
