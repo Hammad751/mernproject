@@ -19,9 +19,32 @@ export const SignUp = async (req, res, next) =>{
         // save the data in database
         // to save this, it can take much time to store data in database
         // so we use await method before saving the data
-        await newUser.save();
+
+      var user=  await newUser.save();
+
         // server will throw the success status
-        res.status(201).json({message: "data stored successfully..."});
+        // res.status(201).json({message: "data stored successfully..."});
+
+        const token = jwt.sign({id: user.id}, process.env.JWT_SECRET);
+
+
+
+        var jsonResponse={
+            "status":200,
+            "messgae":"User Created",
+            "token":token,
+
+
+        };
+
+        res.status(200).json(jsonResponse);
+
+
+        
+
+
+
+
 
     } catch (error) {
         // res.status(500).json(error.message)
@@ -50,7 +73,7 @@ export const SignIn = async (req, res, next) =>{
         // add the expiry data as well for that it sets after how much time it will regenerate the token
 
         const expiryDate = new Date(Date.now() + 60000);
-        res.cookie('access_token', token,
+        res.cookie('access_token', token, 
             {
                 httpOnly:true,
                 expires:expiryDate
