@@ -8,13 +8,14 @@ export const testapi = (req, res) =>{
     })
 };
 
+// update user
 export const updateUser = async (req, res, next) =>{
 
     if(req.user.id !== req.params.id){
         // return res.status(403).json("you can only update your data");
         return next(errorHandler(401, "you can only update your account"));
     }
-///////////
+
     try {
         if(req.body.password){
             req.body.password = bcryptjs.hashSync(req.body.password, 10);
