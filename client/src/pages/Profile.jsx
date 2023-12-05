@@ -3,7 +3,14 @@ import { useEffect, useRef, useState } from 'react';
 import { getDownloadURL, getStorage, ref, uploadBytesResumable } from 'firebase/storage'
 import { app } from '../firebase'
 import { useDispatch } from 'react-redux';
-import { updateUserStart, updateUserSuccess, updateUserFailure } from '../redux/user/userSlice';
+import { 
+  updateUserStart, 
+  updateUserSuccess, 
+  updateUserFailure,
+  deleteUserStart,
+  deleteUserSuccess,
+  deleteUserFailure
+  } from '../redux/user/userSlice';
 
 export default function Profile() {
   
@@ -51,9 +58,9 @@ export default function Profile() {
   }
 
   const handleSubmit = async (e) =>{
+    e.preventDefalut();
     dispatch(updateUserStart());
     // remove the default behaviour of browser
-    e.preventDefalut();
     try {
       // first create the path for api call
       const res = await fetch(`/server/user/update/${currentUser._id}`, {
@@ -64,7 +71,7 @@ export default function Profile() {
         body: JSON.stringify(formData)
       });
       const data = await res.json();
-
+      console.log("data: ", data);
       if(data.success === false){
         dispatch(updateUserFailure(data));
         return;
@@ -73,6 +80,24 @@ export default function Profile() {
       setUpdateSuccess(true);
     } catch (error) {
       dispatch(updateUserFailure(error));
+    }
+  };
+
+  const handleDeleteAccount = async () => {
+    try {
+      dispatch(deleteUserStart());
+      const res = await fetch(`/server/user/delete/${currentUser._id}`,{
+        method: "Delete",
+      });
+      const data = res.json();
+      if(res.status === false){
+        dispatch(deleteUserFailure(data));
+        return; 
+      }
+      dispatch(deleteUserSuccess(data));
+    } catch (error) {
+      dispatch(deleteUserFailure(error));
+      
     }
   }
   return (
@@ -139,7 +164,7 @@ export default function Profile() {
         </button>
       </form>
       <div className='flex justify-between mt-3'>
-        <span className='text-red-600 cursor-pointer'>Delete Account</span>
+        <span onClick={handleDeleteAccount} className='text-red-600 cursor-pointer'>Delete Account</span>
         <span className='text-red-600 cursor-pointer'>Sign Out</span>
       </div>
       <p className='text-red-700 mt-5'>{error && "Something went wrong"}</p>
