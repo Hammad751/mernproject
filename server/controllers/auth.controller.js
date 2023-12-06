@@ -138,7 +138,7 @@ export const google = async (req, res, next) => {
 export const signout = (req,res) =>{
 
 res.clearCookie('access_token');
-res.redirect("/signin")
+// res.redirect("/signin")
 // return res.send("logout successfully")
 
 // res.cookie('access_token', 
