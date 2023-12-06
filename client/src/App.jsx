@@ -1,4 +1,4 @@
-import {BrowserRouter, Routes, Route} from "react-router-dom";
+import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
 import Home from "./pages/Home.jsx"
 import About from "./pages/About.jsx"
 import SignIn from "./pages/SignIn.jsx"
@@ -12,7 +12,7 @@ import PrivateRoute from './components/PrivateRoute.jsx'
 function App() {
   return (
     <div>
-      <BrowserRouter>
+      <Router>
         <Header />
         <Routes>
           <Route path='/' element={<Home />}/>
@@ -23,7 +23,7 @@ function App() {
             <Route path='/profile' element={<Profile />}/>
           </Route>
         </Routes>
-      </BrowserRouter>
+      </Router>
     </div>
   )
 }

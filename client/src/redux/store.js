@@ -17,6 +17,7 @@ export const store = configureStore({
   middleware: (getDefaultMiddleware) => getDefaultMiddleware({
     serializableCheck: false,
   }),
+  // devTools:true    //used for hide the redux store extenshion
 });
 
 export const persistor = persistStore(store)

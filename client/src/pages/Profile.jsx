@@ -9,7 +9,8 @@ import {
   updateUserFailure,
   deleteUserStart,
   deleteUserSuccess,
-  deleteUserFailure
+  deleteUserFailure,
+  signOut
   } from '../redux/user/userSlice';
 
 export default function Profile() {
@@ -72,6 +73,7 @@ export default function Profile() {
       });
       const data = await res.json();
       console.log("data: ", data);
+      console.log("data: ", data);
       if(data.success === false){
         dispatch(updateUserFailure(data));
         return;
@@ -87,7 +89,7 @@ export default function Profile() {
     try {
       dispatch(deleteUserStart());
       const res = await fetch(`/server/user/delete/${currentUser._id}`,{
-        method: "Delete",
+        method: "DELETE",
       });
       const data = res.json();
       if(res.status === false){
@@ -100,6 +102,16 @@ export default function Profile() {
       
     }
   }
+
+  const handleSignOut = async ()=>{
+    try {
+      await fetch('/server/auth/signout')
+      dispatch(signOut())
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   return (
     <div className='p-3 max-w-lg mx-auto'>
       <h1 className='text-3xl font-semibold text-center my-7'>Profile</h1>
@@ -165,7 +177,7 @@ export default function Profile() {
       </form>
       <div className='flex justify-between mt-3'>
         <span onClick={handleDeleteAccount} className='text-red-600 cursor-pointer'>Delete Account</span>
-        <span className='text-red-600 cursor-pointer'>Sign Out</span>
+        <span onClick={handleSignOut} className='text-red-600 cursor-pointer'>Sign Out</span>
       </div>
       <p className='text-red-700 mt-5'>{error && "Something went wrong"}</p>
       <p className='text-green-700 mt-5'>{updateSuccess && "User Updated"}</p>

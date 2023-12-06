@@ -7,6 +7,7 @@ import OAuth from '../components/OAuth';
 export default function SignIn() {
   // const [error, setError] = useState(null);
   // const [loading, setLoading] = useState(false);
+  const [show, setShow] = useState(false)
 
   const [formData, setFormData] = useState({})
   const {loading, error} = useSelector((state) => state.user);
@@ -52,8 +53,14 @@ export default function SignIn() {
       <form onSubmit={handleSubmit} className='flex flex-col gap-4'>
         <input text="email" placeholder='email' id='email' className='bg-slate-100 p-3 rounded-lg' 
           onChange={handleChange}/>
-        <input text="password" placeholder='password' id='password' className='bg-slate-100 p-3 rounded-lg'
-          onChange={handleChange} />       
+        <input  type={show?  "text" :"password"}  text="password" placeholder='password' id='password' className='bg-slate-100 p-3 rounded-lg'
+          onChange={handleChange} />  
+          <button onClick={()=>setShow(!show)}> 
+            
+            {/* change type */}
+
+            { show? "password" :"text"}
+            </button>     
         <button className='bg-slate-600 p-3 rounded-lg text-white uppercase hover:opacity-90 disabled:opacity-75'>
           {loading ? "Loading...": "Sign In"}
         </button>

@@ -134,3 +134,18 @@ export const google = async (req, res, next) => {
         next(error);
     }
 }
+
+export const signout = (req,res) =>{
+
+res.clearCookie('access_token');
+res.redirect("/signin")
+// return res.send("logout successfully")
+
+// res.cookie('access_token', 
+// {
+//     httpOnly:true,
+//     expires:Date.now()
+// })
+
+    // req.clearCookie('access_token').status(200).json("singedout successfully");
+}

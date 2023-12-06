@@ -21,8 +21,7 @@ export const updateUser = async (req, res, next) =>{
             req.body.password = bcryptjs.hashSync(req.body.password, 10);
         }
         const userData = req.body
-        const updatedUser = await User.findByIdAndUpdate
-        (req.params.id,
+        const updatedUser = await User.findByIdAndUpdate(req.params.id,
             {
                 $set:{
                     username: userData.username,
@@ -52,4 +51,8 @@ export const deleteUser = async (req,res, next) => {
     } catch (error) {
         next(error);
     }
+}
+
+export const signout = async (req,res) => {
+    res.clearCookie('access_token').status(200).json("signedout successfully")
 }
